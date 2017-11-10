@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/halo" minWidth="1024" minHeight="768" xmlns:mx1="library://ns.adobe.com/flex/mx">
+	
+	<!-- Import de la fonction actionscript -->
+	<fx:Script source="HelloActionScript.as" />
+	
+	<!-- Ajout de style -->
+	<fx:Style source="style.css">
+	</fx:Style>
+	
+	<fx:Declarations>
+		<s:RadioButtonGroup id="radioBoutons">
+		</s:RadioButtonGroup>
+	</fx:Declarations>
+	
+	<s:states>
+		<s:State name="RechercheSimple" />
+		<s:State name="RechercheAvancee" />
+	</s:states>
+	
+	<s:transitions>
+		<s:Transition id="transition" fromState="*" toState="*">
+			<s:Parallel>
+				<s:Rotate3D angleYFrom="0" angleYTo="360" duration="1000" target="{panel1}"/>
+				<s:Move xFrom="0" xTo="360" duration="1000" target="{panel1}"/>
+			</s:Parallel>
+		</s:Transition>
+	</s:transitions>
+	
+	<s:VGroup gap="40">	
+		<s:HGroup x="15" y="15">
+			<!-- Ajout du paneau à l'aide de la bibliotheque Spark -->
+			<s:Panel id="panneau" width="270" height="150" title="Hello world !!">
+				
+				<!-- Ajout d'un bouton -->
+				<s:Button id="bouton_action" label="Hello !!" click="afficherMessage()" height="40" width="120" horizontalCenter="0" verticalCenter="0" />
+				
+			</s:Panel> 
+			
+			<!-- Composant de type liste -->
+			<s:List>
+				<s:layout>
+					<s:HorizontalLayout />
+				</s:layout>
+				<s:dataProvider>
+					<s:ArrayCollection>
+						<fx:Object data="1" label="Ligne 1" />
+						<fx:Object data="2" label="Ligne 2" />
+						<fx:Object data="3" label="Ligne 3" />	
+					</s:ArrayCollection>
+				</s:dataProvider>
+			</s:List>
+			
+			<!-- Realisation d'une etoile -->
+			<s:Path data="M 55 0 L 67 36 L 109 36 L 73 54 L 83 96 L 55 72 L 27 96 L 37 54 L 1 36 L 43 36 Z" >
+				<!-- Trace -->
+				<s:stroke>
+					<s:SolidColorStroke color="red" />
+				</s:stroke>
+			</s:Path>
+			
+			<!-- Un graphique dessinant un bouton bleu -->
+			<s:Group verticalCenter="0" horizontalCenter="0">
+				
+				<s:Rect id="rect" radiusX="4" radiusY="4" top="0" right="0" bottom="0" left="0">
+					
+					<!-- Couleur de fond -->
+					<s:fill>
+						<s:SolidColor color="0x0099FF" />
+					</s:fill>
+					
+					<!-- Couleur de la bordure -->
+					<s:stroke>
+						<s:SolidColorStroke color="0x222222" weight="2" />
+					</s:stroke>
+				</s:Rect>
+				
+				<s:Label text="Habillage" color="0x222222" textAlign="center" verticalAlign="middle"
+						 horizontalCenter="0" verticalCenter="1" left="12" right="12" top="6" bottom="6"
+						 />
+			</s:Group>
+			
+			<!-- Un bouton avec un habillage personnalise similaire au graphique ci dessus -->
+			<s:Button skinClass="BoutonBleuSkin" label="Bouton habillé" />
+		</s:HGroup>
+		
+		<s:HGroup horizontalAlign="center" verticalAlign="middle">
+			<s:Label>
+				<s:text>Design des interfaces et dynamisme applicatif</s:text>
+			</s:Label>
+		</s:HGroup>
+		
+		<s:VGroup>
+			<!-- Groupe de boutons radios -->
+			<s:HGroup>
+				<s:RadioButton label="Recherche simple" groupName="radioBoutons" id="btn_simple" selected="true" click="currentState=''"/>
+				<s:RadioButton label="Recherche avancee" groupName="radioBoutons" id="btn_avance" click="currentState='RechercheAvancee'"/>	
+			</s:HGroup>
+			<!-- Criteres de recherche -->
+			<s:Panel id="panel1" width="320" height="220" title="Criteres de recherche" 
+					 width.RechercheAvancee="400" height.RechercheAvancee="300">
+				    <s:VGroup gap="5">
+						<s:Form x="10" y="10" height.RechercheAvancee="176">
+							<s:FormItem label="N° patient :">
+								<s:TextInput id="numPatient"/>
+							</s:FormItem>
+							<s:FormItem label="Prénom :">
+								<s:TextInput id="Prenom"/>
+							</s:FormItem>
+							<s:FormItem label="Nom :">
+								<s:TextInput id="Nom"/>
+							</s:FormItem>
+							<s:FormItem includeIn="RechercheAvancee" label="N° chambre :">
+								<s:TextInput width="158"/>
+							</s:FormItem>
+							<s:FormItem includeIn="RechercheAvancee" label="Date admission :">
+								<mx1:DateField width="156"/>
+							</s:FormItem>
+						</s:Form>
+						<s:Button label="Rechercher" id="btn_rechercher"/>	
+					</s:VGroup>
+			</s:Panel>
+		</s:VGroup>
+		
+	</s:VGroup>
+	
+</s:Application>
